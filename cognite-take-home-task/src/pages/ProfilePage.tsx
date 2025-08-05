@@ -3,23 +3,8 @@ import { useAuthStore } from "../store/useAuthStore";
 import { Mail, User } from "lucide-react";
 
 const ProfilePage = () => {
-  const { authUser, isUpdatingProfile, updateProfile } = useAuthStore() as any;
-  const [selectedImg, setSelectedImg] = useState(null) as any;
-
-  const handleImageUpload = async (e:any) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-
-    reader.readAsDataURL(file);
-
-    reader.onload = async () => {
-      const base64Image = reader.result;
-      setSelectedImg(base64Image);
-      await updateProfile({ profilePic: base64Image });
-    };
-  };
+  const { authUser } = useAuthStore() as any;
+  const [selectedImg] = useState(null) as any;
 
   return (
     <div className="pt-20">

@@ -15,54 +15,54 @@ export const useChatStore = create((set, get) => ({
     try {
       const res = await axiosInstance.get("/messages/users");
       set({ users: res.data });
-    } catch (error) {
+    } catch (error:any) {
       toast.error(error.response.data.message);
     } finally {
       set({ isUsersLoading: false });
     }
   },
 
-  getMessages: async (userId) => {
+  getMessages: async (userId:any) => {
     set({ isMessagesLoading: true });
     try {
       const res = await axiosInstance.get(`/messages/${userId}`);
       set({ messages: res.data });
-    } catch (error) {
+    } catch (error:any) {
       toast.error(error.response.data.message);
     } finally {
       set({ isMessagesLoading: false });
     }
   },
-  sendMessage: async (messageData) => {
-    const { selectedUser, messages } = get();
+  sendMessage: async (messageData:any) => {
+    const { selectedUser, messages } = get() as any;
     try {
       const res = await axiosInstance.post(`/messages/send/${selectedUser._id}`, messageData);
       set({ messages: [...messages, res.data] });
-    } catch (error) {
+    } catch (error:any) {
       toast.error(error.response.data.message);
     }
   },
 
   subscribeToMessages: () => {
-    const { selectedUser } = get();
+    const { selectedUser } = get() as any;
     if (!selectedUser) return;
 
-    const socket = useAuthStore.getState().socket;
+    const socket = (useAuthStore.getState() as any).socket;
 
-    socket.on("newMessage", (newMessage) => {
+    socket.on("newMessage", (newMessage:any) => {
       const isMessageSentFromSelectedUser = newMessage.senderId === selectedUser._id;
       if (!isMessageSentFromSelectedUser) return;
 
       set({
-        messages: [...get().messages, newMessage],
+        messages: [...(get() as any).messages, newMessage],
       });
     });
   },
 
   unsubscribeFromMessages: () => {
-    const socket = useAuthStore.getState().socket;
+    const socket = (useAuthStore.getState() as any).socket;
     socket.off("newMessage");
   },
 
-  setSelectedUser: (selectedUser) => set({ selectedUser }),
+  setSelectedUser: (selectedUser:any) => set({ selectedUser }),
 }));

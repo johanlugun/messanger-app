@@ -6,17 +6,17 @@ import toast from "react-hot-toast";
 const MessageInput = () => {
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
-  const fileInputRef = useRef(null);
-  const { sendMessage } = useChatStore();
+  const fileInputRef = useRef(null) as any;
+  const { sendMessage } = useChatStore() as any;
 
-  const handleImageChange = (e) => {
+  const handleImageChange = (e:any) => {
     const file = e.target.files[0];
     if (!file.type.startsWith("image/")) {
       toast.error("Please select an image file");
       return;
     }
 
-    const reader = new FileReader();
+    const reader = new FileReader() as any;
     reader.onloadend = () => {
       setImagePreview(reader.result);
     };
@@ -28,7 +28,7 @@ const MessageInput = () => {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  const handleSendMessage = async (e) => {
+  const handleSendMessage = async (e:any) => {
     e.preventDefault();
     if (!text.trim() && !imagePreview) return;
 

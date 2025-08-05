@@ -15,9 +15,9 @@ const ChatContainer = () => {
     selectedUser,
     subscribeToMessages,
     unsubscribeFromMessages,
-  } = useChatStore();
-  const { authUser } = useAuthStore();
-  const messageEndRef = useRef(null);
+  }: any = useChatStore();
+  const { authUser } = useAuthStore() as any;
+  const messageEndRef = useRef(null) as any;
 
   useEffect(() => {
     getMessages(selectedUser._id);
@@ -48,7 +48,7 @@ const ChatContainer = () => {
       <ChatHeader />
 
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.map((message) => (
+        {messages.map((message:any) => (
           <div
             key={message._id}
             className={`chat ${message.senderId === authUser._id ? "chat-end" : "chat-start"}`}

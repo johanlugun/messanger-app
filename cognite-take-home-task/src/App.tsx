@@ -14,8 +14,8 @@ import { Loader } from "lucide-react";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
-  const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore();
-  const { theme } = useThemeStore();
+  const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore() as any;
+  const { theme } = useThemeStore() as any;
 
   console.log({ onlineUsers });
 

@@ -3,8 +3,8 @@ import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
 
 const ChatHeader = () => {
-  const { selectedUser, setSelectedUser } = useChatStore();
-  const { onlineUsers } = useAuthStore();
+  const { selectedUser, setSelectedUser } = useChatStore() as any;
+  const { onlineUsers } = useAuthStore() as any;
 
   return (
     <div className="p-2.5 border-b border-base-300">
